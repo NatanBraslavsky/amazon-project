@@ -44,7 +44,9 @@ products.forEach((product)=>{
                 <img src="images/icons/checkmark.png">
                 Added
             </div>
-
+            <div class="add-to-cart-hide">
+                ✅Added
+            </div>
             <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${product.id}">
                 Add to Cart
             </button>
@@ -80,6 +82,12 @@ document.querySelectorAll('.js-add-to-cart')
                 cartQuantity+=item.quantity
             })
             document.querySelector('.js-cart-quantity').innerHTML = cartQuantity
+            const productContainer = button.closest('.product-container')
+            const messageAdded = productContainer.querySelector('.add-to-cart-hide')
+            messageAdded.classList.add('add-to-cart-show')
+            setTimeout(()=>{
+                messageAdded.classList.remove('add-to-cart-show')
+            }, 1500)
         })
     })
 

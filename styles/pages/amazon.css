@@ -154,3 +154,17 @@
   padding: 8px;
   border-radius: 50px;
 }
+
+.add-to-cart-hide{
+  opacity: 0;
+  color:green; 
+  font-weight:500; 
+  font-family:Arial;
+  padding:7px;
+  font-size:18px;
+  transition: opacity 0.3s;
+}
+
+.add-to-cart-show{
+  opacity:1; 
+}
