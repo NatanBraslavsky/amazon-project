@@ -78,11 +78,15 @@ document.querySelectorAll('.js-add-to-cart')
             }
 
             let cartQuantity = 0;
+
             cart.forEach((item)=>{
                 cartQuantity+=item.quantity
             })
+
             document.querySelector('.js-cart-quantity').innerHTML = cartQuantity
+
             const productContainer = button.closest('.product-container')
+            
             const messageAdded = productContainer.querySelector('.add-to-cart-hide')
             messageAdded.classList.add('add-to-cart-show')
             setTimeout(()=>{
