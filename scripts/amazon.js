@@ -1,5 +1,5 @@
-import {cart} from '../data/cart.js'
-import {products} from '../data/products.js'
+import { cart, addToCart } from '../data/cart.js'
+import { products } from '../data/products.js'
 
 let productsHTML = ''
 
@@ -57,44 +57,56 @@ products.forEach((product)=>{
     `
 })
 
+function addToCart(productId){
+    let matchingItem
+
+    cart.forEach((cartItem)=>{
+        if(productId === cartItem.productId){
+            matchingItem = cartItem
+        }
+    })
+    if(matchingItem){
+        matchingItem.quantity+=1
+    } else{
+        cart.push({
+            productId: productId,
+            quantity: 1
+        })
+    }
+}
+
+function updateCartQuantity(){
+    let cartQuantity = 0;
+
+    cart.forEach((cartItem)=>{
+        cartQuantity+=cartItem.quantity
+    })
+
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity
+}
+
+function messageAddedToCart(button){
+    const productContainer = button.closest('.product-container')
+
+    const messageAdded = productContainer.querySelector('.add-to-cart-hide')
+    messageAdded.classList.add('add-to-cart-show')
+
+    setTimeout(()=>{
+        messageAdded.classList.remove('add-to-cart-show')
+    }, 1500)
+}
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML
 
 document.querySelectorAll('.js-add-to-cart')
     .forEach((button)=>{
         button.addEventListener('click', () =>{
+
             const productId = button.dataset.productId
-            let matchingItem
 
-            cart.forEach((item)=>{
-                if(productId === item.productId){
-                    matchingItem = item
-                }
-            })
-            if(matchingItem){
-                matchingItem.quantity+=1
-            } else{
-                cart.push({
-                    productId: productId,
-                    quantity: 1
-                })
-            }
-
-            let cartQuantity = 0;
-
-            cart.forEach((item)=>{
-                cartQuantity+=item.quantity
-            })
-
-            document.querySelector('.js-cart-quantity').innerHTML = cartQuantity
-
-            const productContainer = button.closest('.product-container')
-
-            const messageAdded = productContainer.querySelector('.add-to-cart-hide')
-            messageAdded.classList.add('add-to-cart-show')
-            setTimeout(()=>{
-                messageAdded.classList.remove('add-to-cart-show')
-            }, 1500)
+            addToCart(productId)
+            updateCartQuantity()
+            messageAddedToCart(button)
         })
     })
 
