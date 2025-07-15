@@ -1,3 +1,5 @@
+import {cart} from '../data/cart.js'
+
 let productsHTML = ''
 
 products.forEach((product)=>{
@@ -86,7 +88,7 @@ document.querySelectorAll('.js-add-to-cart')
             document.querySelector('.js-cart-quantity').innerHTML = cartQuantity
 
             const productContainer = button.closest('.product-container')
-            
+
             const messageAdded = productContainer.querySelector('.add-to-cart-hide')
             messageAdded.classList.add('add-to-cart-show')
             setTimeout(()=>{
